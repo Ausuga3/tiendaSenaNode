@@ -1,0 +1,56 @@
+<div class="container">
+    <!-- <% if (request.session.pista.rol === 3 || request.session.pista.rol === 1) { %> -->
+        <a href="/agregar-producto-usuario" class="btn btn-success mb-3">Agregar</a>
+    <% } %>
+    <h1>Productos</h1>
+    <div class="row">
+        <% data.forEach(function(producto) { %>
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card product-card shadow-sm h-100 position-relative">
+                <div class="position-relative overflow-hidden">
+                    <% if (producto.en_oferta) { %>
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="z-index: 9999;">
+                        <%= Math.round(producto.descuento) %>% OFF
+                    </span>
+                    <% } %>
+                    <a href="/detalle-producto/<%= producto.id %>">
+                        <% if (producto.imagenes && producto.imagenes.length > 0) { %>
+                        <div class="ratio ratio-1x1">
+                            <img src="<%= producto.imagenes[0].imagen.url %>" class="img-fluid object-fit-cover"
+                                alt="<%= producto.nombre %>">
+                        </div>
+                        <% } else { %>
+                        <img src="/static/assets/product.png" class="product-image card-img-top"
+                            alt="Imagen no disponible">
+                        <% } %>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><%= producto.nombre %></h5>
+                    <p class="card-text text-muted"><%= producto.descripcion %></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <% if (producto.en_oferta) { %>
+                        <span class="text-muted text-decoration-line-through">
+                            $<%= producto.precio.toLocaleString('es-CO') %>
+                        </span>
+                        <span class="h4 mb-0 ms-2 text-primary">
+                            $<%= producto.precio_descuento.toLocaleString('es-CO') %>
+                        </span>
+                        <% } else { %>
+                        <span class="h4 mb-0 text-primary">
+                            $<%= producto.precio.toLocaleString('es-CO') %>
+                        </span>
+                        <% } %>
+                    </div>
+                    <% if (request.session.pista.rol === 1) { %>
+                    <div class="d-grid gap-2 mt-3">
+                        <a href="/editar-producto-usuario/<%= producto.id %>" class="btn btn-warning">Editar</a>
+                        <a href="/eliminar-producto-usuario/<%= producto.id %>" class="btn btn-danger">Eliminar</a>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>

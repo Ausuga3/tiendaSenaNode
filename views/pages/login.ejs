@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+    <%- include('../partials/mensaje'); %>
+    <nav>
+        <div class="nav_styles navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="<%= '/' %>"">
+                    <img src="" alt="Logo" width="60" height="48" class="d-inline-block align-text-top">
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="container-login">
+        <div class="login-modal position-relative">
+            <div class="sing-up text-end">
+                <a href="<%= '/login' %>" class="btn border-buttom border-2 border-dark">Iniciar Sesion</a>
+                <a href="<%= '/registrarse' %>" class="btn btn-disabled">Registrarse</a>
+            </div>
+                <hr>     
+            <h2>Iniciar Sesion</h2>
+            <form action="/login" method="post">
+                <div class="mb-3 position-relative">
+                    <label for="correo" class="form-label">Email</label>
+                    <input type="email" name="correo" class="form-control" id="correo" placeholder="Ingresa tu correo" required="">
+                </div>
+                <div class="mb-3 position-relative">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required="">
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg ">Iniciar Sesion</button>
+                </div>
+                
+                <div class="text-center mt-1">
+                    <a href="" class="small">¿No tienes una cuenta? <strong>Inscribete</strong></a>
+                </div>
+                <div class="text-center mt-1">
+                    <a href="" class="small">¿Olvidaste tu contraseña?</a>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="/auth/google" class="btn btn-danger btn-lg w-100">
+                        <i class="bi bi-google"></i> Iniciar sesión con Gmail
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

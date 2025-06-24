@@ -1,0 +1,5 @@
+<%- include('../bases/base', { titulo: 'Tienda Sena' }) %>
+
+<% block('main') { %>
+    <%- include('../bases/_productos', { data: data, request: request }) %>
+<% } %>

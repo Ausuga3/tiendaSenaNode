@@ -1,0 +1,6 @@
+<% if (request.session.mensaje) { %>
+    <div class="alert alert-success text-center">
+        <%= request.session.mensaje %>
+    </div>
+    <% request.session.mensaje = null; %>
+<% } %>
