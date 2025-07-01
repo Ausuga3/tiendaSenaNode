@@ -47,4 +47,21 @@ router.get('/auth/google/callback',
     }
 );
 
+
+function asegurarAutenticado(req, res, next) {
+    if (req.isAuthenticated && req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+router.get('/perfil_usuario', asegurarAutenticado, (req, res) => {
+    res.render('pages/usuarios/perfil_usuario', {
+        dato: req.user
+    });
+});
+
+
+
+
 module.exports = router;

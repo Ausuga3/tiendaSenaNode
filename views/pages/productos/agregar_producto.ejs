@@ -1,11 +1,59 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%- include('../../partials/head'); %>
 </head>
 <body>
-    
+    <header>
+        <%- include('../../partials/header'); %>
+    </header>  
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Agregar Producto</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/agregar-producto" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="nombreProducto" class="form-label">Nombre del Producto:</label>
+                                <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcionProducto" class="form-label">Descripción:</label>
+                                <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" rows="4"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="precioProducto" class="form-label">Precio:</label>
+                                <input type="number" class="form-control" id="precioProducto" name="precioProducto" step="0.01" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagenProducto" class="form-label">Imagen del Producto:</label>
+                                <input type="file" class="form-control" id="imagenProducto" name="imagenProducto" accept="image/*">
+                            </div>
+                            <div class="mb-3">
+                                <label for="stock" class="form-label">Cantidad Disponible:</label>
+                                <input type="number" class="form-control" id="stock" name="stock" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="categoria" class="form-label">Categoría:</label>
+                                <select class="form-select" id="categoria" name="categoria">
+                                    <option value="" selected disabled>Seleccione una categoría</option>
+                                    <% categorias.forEach(function(cat) { %>
+                                        <option value="<%= cat %>"><%= cat %></option>
+                                    <% }); %>
+                                </select>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">Agregar Producto</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

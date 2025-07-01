@@ -18,16 +18,13 @@
     
     <!-- Contenido principal -->
     <div class="container content" style="padding: 20px;padding-top: 40px;">
-        <h1>---</h1>
-        <p><strong>Rol:</strong>--</p>
-
         <div class="card text-center mt-5 mb-3">
             <div class="row d-flex justify-content-end p-2">
                 <div class="col-12 col-md-2 d-flex justify-content-center align-items-center p-0">
                         <img src="" class="border rounded-5 img-fluid" alt="Client Avatar">
                 </div>
                 <div class="col-12 col-md-10 row d-flex text-start mb-5 p-2" data-bs-toggle="modal" data-bs-target="#userModal2">
-                    <h5 class="client-name mb-1">{{ dato.nombre_apellido }}</h5>
+                    <h5 class="client-name mb-1"><%= dato.nombre_apellido %></h5>
                     <p>--</p> <!-- Necesito el correo del usuario -->
                 </div>
             </div>    

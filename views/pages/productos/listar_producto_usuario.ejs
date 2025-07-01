@@ -1,5 +1,41 @@
-<%- include('../bases/base', { titulo: 'Tienda Sena' }) %>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../../partials/head'); %>
+    </head>
+<body>
+    <header>
+        <%- include('../../partials/header'); %>
+    </header>  
+    <main>
+        <div class="container">
+            <div class="text-center">
+                <h1 class="">Productos</h1>
+            </div>
+            <main>
+                <div class="productos-grid">
+                    <% if (productos.length > 0) { %>
+                        <% productos.forEach(function(producto) { %>
+                            <div class="producto-card">
+                                <% if (producto.imagen) { %>
+                                    <img src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
+                                <% } else { %>
+                                    <img src="/images/placeholder.png" alt="Imagen no disponible"> <% } %>
+                                <h2><%= producto.nombre %></h2>
+                                <p><%= producto.descripcion %></p>
+                                <p class="precio">$<%= producto.precio.toFixed(2) %></p>
+                                </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No hay productos disponibles. ¡Agrega algunos!</p>
+                    <% } %>
+                </div>
+            </main>
+            
+            <a class="btn btn-success" href="/agregar_producto">Agregar Producto</a>
 
-<% block('main') { %>
-    <%- include('../bases/_productos', { data: data, request: request }) %>
-<% } %>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,27 +1,36 @@
-const Producto = require('../models/producto_models');
+const { Producto, CATEGORIAS } = require('../models/producto_models');
+
 
 // Crear un producto
-exports.createProduct = async (req, res) => {
+exports.agregarProducto = async (req, res) => {
     try {
-        const newProduct = {
-            nombre: req.body.nombre,
-            descripcion: req.body.descripcion,
-            stock: req.body.stock,
-            vendedor: req.body.vendedor, // Debe ser un ObjectId válido
-            categoria: req.body.categoria,
-            color: req.body.color,
-            en_oferta: req.body.en_oferta,
-            precio_original: req.body.precio_original,
-            descuento: req.body.descuento
-        };
+        const { nombreProducto, descripcionProducto, precioProducto, stock, categoria } = req.body;
+        // Suponiendo que tienes el usuario en req.user
+        const vendedor = req.user ? req.user._id : null;
 
-        const productoCreado = await Producto.create(newProduct);
-        res.status(201).json({ mensaje: 'Producto creado con éxito', producto: productoCreado });
+        // Si subiste imagen, puedes guardar la ruta
+        let imagen = null;
+        if (req.file) {
+            imagen = '/static/uploads/' + req.file.filename;
+        }
+
+        const nuevoProducto = new Producto({
+            nombre: nombreProducto,
+            descripcion: descripcionProducto,
+            precio: precioProducto,
+            stock: stock,
+            vendedor: vendedor,
+            categoria: categoria,
+            // Puedes agregar el campo imagen si lo agregas al modelo
+        });
+
+        await nuevoProducto.save();
+        res.redirect('/listar_producto_usuario');
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        console.error(error);
+        res.status(500).send('Error al agregar producto');
     }
 };
-
 // Obtener todos los productos
 exports.getAllProducts = async (req, res) => {
     try {
@@ -51,13 +60,10 @@ exports.updateProduct = async (req, res) => {
         const updateFields = {
             nombre: req.body.nombre,
             descripcion: req.body.descripcion,
+            precio: req.body.precio,
             stock: req.body.stock,
             vendedor: req.body.vendedor,
             categoria: req.body.categoria,
-            color: req.body.color,
-            en_oferta: req.body.en_oferta,
-            precio_original: req.body.precio_original,
-            descuento: req.body.descuento
         };
 
         // Elimina campos undefined para evitar sobreescribir con undefined
@@ -95,13 +101,14 @@ exports.deleteProduct = async (req, res) => {
 
 exports.listarProductosUsuario = async (req, res) => {
     try {
-        const productos = await Producto.find(); // Ajusta según tu lógica
+        const productos = await Producto.find();
         res.render('pages/productos/listar_producto_usuario', {
-            titulo: 'Tienda Sena',
-            data: productos,
-            request: req // Si necesitas la sesión en la vista
+            productos: productos,
+            request: req
         });
     } catch (error) {
         res.status(500).send('Error al listar productos');
     }
 };
+
+

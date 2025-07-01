@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const CATEGORIAS = ['Moda', 'Tecnologia', 'Artesania', 'Accesorios', 'Servicios', 'Otros'];
 const productoSchema = new Schema({
     nombre: {
         type: String,
@@ -27,39 +28,16 @@ const productoSchema = new Schema({
     categoria: {
         type: String,
         required: [true, 'La categoría es obligatoria'],
-        enum: ['Moda', 'Tecnologia', 'Artesania', 'Accesorios', 'Servicios', 'Otros']
+        enum: CATEGORIAS,
     },
-    color: {
-        type: String,
-        enum: ['Ninguno', 'Gris', 'Blanco', 'Negro', 'Amarillo', 'Azul', 'Rojo'],
-        default: 'Ninguno'
-    },
-    en_oferta: {
-        type: Boolean,
-        default: false
-    },
-    precio_original: {
+    precio: {
         type: Number,
-        required: [true, 'El precio original es obligatorio'],
-        min: [0, 'El precio original no puede ser negativo.']
+        required: [true, 'El precio es obligatorio'],
+        min: 0
     },
-    descuento: {
-        type: Number,
-        default: 0,
-        min: [0, 'El descuento no puede ser negativo.']
-    }
 });
 
-// Validación de descuento
-productoSchema.pre('save', function(next) {
-    if (this.en_oferta && this.descuento > 0) {
-        this.precio_final = this.precio_original - (this.precio_original * this.descuento / 100);
-    } else {
-        this.precio_final = this.precio_original;
-    }
-    next();
-});
 
 const Producto = mongoose.model('Producto', productoSchema);
 
-module.exports = Producto;
+module.exports = { Producto, CATEGORIAS };
