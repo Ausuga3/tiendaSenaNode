@@ -21,7 +21,8 @@ exports.agregarProducto = async (req, res) => {
             stock: stock,
             vendedor: vendedor,
             categoria: categoria,
-            // Puedes agregar el campo imagen si lo agregas al modelo
+            imagen: imagen,
+            
         });
 
         await nuevoProducto.save();
@@ -64,6 +65,7 @@ exports.updateProduct = async (req, res) => {
             stock: req.body.stock,
             vendedor: req.body.vendedor,
             categoria: req.body.categoria,
+            imagen: req.body.imagen,
         };
 
         // Elimina campos undefined para evitar sobreescribir con undefined

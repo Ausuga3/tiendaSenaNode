@@ -12,30 +12,38 @@
             <div class="text-center">
                 <h1 class="">Productos</h1>
             </div>
-            <main>
-                <div class="productos-grid">
-                    <% if (productos.length > 0) { %>
-                        <% productos.forEach(function(producto) { %>
-                            <div class="producto-card">
+            <div class="row">
+                <% if (productos.length > 0) { %>
+                    <% productos.forEach(function(producto) { %>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow">
                                 <% if (producto.imagen) { %>
-                                    <img src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
+                                    <img src="<%= producto.imagen %>" class="card-img-top" alt="<%= producto.nombre %>">
                                 <% } else { %>
-                                    <img src="/images/placeholder.png" alt="Imagen no disponible"> <% } %>
-                                <h2><%= producto.nombre %></h2>
-                                <p><%= producto.descripcion %></p>
-                                <p class="precio">$<%= producto.precio.toFixed(2) %></p>
+                                    <img src="/static/assets/product.png" class="card-img-top" alt="Imagen no disponible">
+                                <% } %>
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= producto.nombre %></h5>
+                                    <p class="card-text"><%= producto.descripcion %></p>
+                                    <p class="card-text fw-bold text-success">$<%= producto.precio %></p>
                                 </div>
-                        <% }); %>
-                    <% } else { %>
-                        <p>No hay productos disponibles. ¡Agrega algunos!</p>
-                    <% } %>
-                </div>
-            </main>
-            
-            <a class="btn btn-success" href="/agregar_producto">Agregar Producto</a>
-
+                                <div class="card-footer text-end">
+                                    <a href="#" class="btn btn-primary">Ver detalle</a>
+                                    <% if (usuario && producto.vendedor && usuario._id.toString() === producto.vendedor.toString()) { %>
+                                        <a href="/actualizar_producto/<%= producto._id %>" class="btn btn-warning">Actualizar</a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No hay productos disponibles. ¡Agrega algunos!</p>
+                <% } %>
+            </div>
+            <div class="mt-3 mb-4">
+                <a class="btn btn-success mt-3" href="/agregar_producto">Agregar Producto</a>
+            </div>
         </div>
     </main>
-
 </body>
 </html>

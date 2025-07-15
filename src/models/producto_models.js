@@ -35,6 +35,10 @@ const productoSchema = new Schema({
         required: [true, 'El precio es obligatorio'],
         min: 0
     },
+    imagen: {
+        type: String, 
+        required: false 
+    }
 });
 
 
